@@ -20,6 +20,6 @@ public class DnaController {
     private DnaService dnaService;
     @PostMapping(Routes.MUTANT_ROUTE)
     public Map<String, Object> validateMutant(@RequestBody DnaRegisterDto dnaRegisterDto){
-        return ResponseEntity.status(HttpStatus.CREATED).body(dnaService.Mutant(dnaRegisterDto)).getBody();
+        return ResponseEntity.status(HttpStatus.OK).body(dnaService.Mutant(dnaRegisterDto)).getBody();
     }
 }

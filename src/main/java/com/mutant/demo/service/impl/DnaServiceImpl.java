@@ -1,8 +1,10 @@
 package com.mutant.demo.service.impl;
 
+import com.mutant.demo.constants.ConstantUtils;
 import com.mutant.demo.dao.DnaDao;
 import com.mutant.demo.dto.dna.DnaDto;
 import com.mutant.demo.dto.dna.DnaRegisterDto;
+import com.mutant.demo.exceptions.custom.BadDataException;
 import com.mutant.demo.model.Dna;
 import com.mutant.demo.service.DnaService;
 import lombok.AllArgsConstructor;
@@ -28,23 +30,44 @@ public class DnaServiceImpl implements DnaService {
     @Transactional
     public Map<String, Object> Mutant (DnaRegisterDto dnaRegisterDto){
         DnaDto dnaDto = new DnaDto();
+        dnaDto.setDna(dnaValidations(dnaRegisterDto));
         dnaDto.setIsMutant(true);
-        dnaDto = dnaRegisterDtoToDnaDto(dnaRegisterDto);
         Dna dna = this.save(dnaDto);
         Map<String, Object> map = new HashMap<>();
         return map;
     }
-    DnaDto dnaRegisterDtoToDnaDto(DnaRegisterDto dnaRegisterDto){
+    String dnaValidations(DnaRegisterDto dnaRegisterDto){
         String dna[] = dnaRegisterDto.getDna();
         String dnaClear = new String();
+        Integer count=dna[0].length();
         for (String i:dna) {
+            validateMaxSize(i);
+            validateSquare(i,count);
+            validateCharacters(i);
             dnaClear = dnaClear.concat(i.concat(","));
         }
         dnaClear= dnaClear.substring(0,dnaClear.length()-1);
-        DnaDto dnaDto = new DnaDto();
-        dnaDto.setDna(dnaClear);
-        return dnaDto;
+        return dnaClear;
     }
-
-
+    Void validateCharacters(String dna){
+        for (int j=0;j<dna.length();j++) {
+            char letter = dna.charAt(j);
+            if(!(letter=='A'||letter=='T'||letter=='C'||letter=='G')){
+                throw new BadDataException(ConstantUtils.ADN_NOT_CORRECT);
+            }
+        }
+        return null;
+    }
+    Void validateSquare(String dna, Integer count){
+        if(count!=dna.length()){
+            throw new BadDataException(ConstantUtils.ADN_WRONG_SIZE);
+        }
+        return null;
+    }
+    Void validateMaxSize(String dna){
+        if(ConstantUtils.MAX_SQUARE_SIZE<dna.length()){
+            throw new BadDataException(ConstantUtils.ADN_MAX_SIZE_EXCEEDED);
+        }
+        return null;
+    }
 }
