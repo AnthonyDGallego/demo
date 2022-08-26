@@ -1,5 +1,6 @@
 package com.mutant.demo.exceptions;
 
+import com.mutant.demo.exceptions.custom.AccessDeniedException;
 import com.mutant.demo.exceptions.custom.BadDataException;
 import com.mutant.demo.exceptions.custom.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.naming.ServiceUnavailableException;
-import java.nio.file.AccessDeniedException;
 import java.util.Date;
 import java.util.Map;
 import java.util.stream.Collectors;

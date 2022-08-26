@@ -8,5 +8,5 @@ import java.util.Map;
 
 public interface DnaService {
     Dna save(DnaDto dna);
-    Map<String, Object> Mutant (DnaRegisterDto dnaRegisterDto);
+    Void Mutant (DnaRegisterDto dnaRegisterDto);
 }
