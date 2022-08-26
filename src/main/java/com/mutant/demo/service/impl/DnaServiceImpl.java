@@ -6,7 +6,6 @@ import com.mutant.demo.dto.dna.DnaRegisterDto;
 import com.mutant.demo.model.Dna;
 import com.mutant.demo.service.DnaService;
 import lombok.AllArgsConstructor;
-import org.apache.tomcat.util.buf.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -39,11 +38,13 @@ public class DnaServiceImpl implements DnaService {
         String dna[] = dnaRegisterDto.getDna();
         String dnaClear = new String();
         for (String i:dna) {
-            dnaClear = dnaClear+i+",";
+            dnaClear = dnaClear.concat(i.concat(","));
         }
         dnaClear= dnaClear.substring(0,dnaClear.length()-1);
         DnaDto dnaDto = new DnaDto();
         dnaDto.setDna(dnaClear);
         return dnaDto;
     }
+
+
 }
