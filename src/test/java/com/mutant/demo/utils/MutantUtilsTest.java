@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class MutantUtilsTest {
     @Mock
     private DnaDao dnaDao;
+
     @Test
     void testNoMutantShouldThrowException() {
         Dna dna = new Dna();
@@ -25,58 +26,62 @@ class MutantUtilsTest {
             MutantUtils.noMutant(dna);
         });
     }
-    @Test
-    void testIsMutantShouldReturnTrueWhenFoundHorizontal() {
-        char[][] matrix = {{'A', 'A', 'A', 'A'}, {'A', 'A', 'A', 'A'}, {'A', 'C', 'G', 'T'}, {'A', 'C', 'G', 'T'}};
-        assert(MutantUtils.isMutant(matrix, 4));
-    }
-    @Test
-    void testIsMutantShouldReturnTrueWhenFoundVertical() {
-        char[][] matrix = {{'A', 'T', 'C', 'G'}, {'A', 'T', 'C', 'G'}, {'A', 'T', 'C', 'G'}, {'A', 'T', 'C', 'G'}};
-        assert(MutantUtils.isMutant(matrix, 4));
-    }
+
     @Test
     void testIsMutantShouldReturnFalse() {
-        char[][] matrix = {{'A', 'T', 'G', 'C','G'}, {'T', 'A', 'A', 'C', 'A'}, {'G', 'T', 'G', 'G', 'A'}, {'C', 'A', 'G', 'C', 'T'}, {'A', 'C', 'G', 'C', 'G'}};
+        char[][] matrix = {{'A', 'T', 'G', 'C', 'G'}, {'T', 'A', 'A', 'C', 'A'}, {'G', 'T', 'G', 'G', 'A'}, {'C', 'A',
+                'G', 'C', 'T'}, {'A', 'C', 'G', 'C', 'G'}};
         Boolean isMutant = MutantUtils.isMutant(matrix, 5);
-        assert(!isMutant);
+        assert (!isMutant);
     }
+
+    @Test
+    void testIsMutantShouldReturnTrueWhenFoundHorizontalAndVertical() {
+        char[][] matrix = {{'A', 'A', 'A', 'A'}, {'A', 'C', 'G', 'T'}, {'A', 'C', 'G', 'T'}, {'A', 'C', 'G', 'T'}};
+        assert (MutantUtils.isMutant(matrix, 4));
+    }
+
     @Test
     void testIsMutantShouldReturnTrueWhenFoundDiagonals() {
-        char[][] matrix = {{'A', 'T', 'G', 'C','G','A'}, {'C', 'A', 'G', 'T','A','C'}, {'T', 'T', 'A', 'A','T','T'}, {'A', 'G', 'A', 'A','G','G'}, {'G', 'C', 'G', 'T','C','A'}, {'A', 'T', 'G', 'C','G','A'}};
-        assert(MutantUtils.isMutant(matrix, 6));
+        char[][] matrix = {{'A', 'T', 'G', 'A'}, {'C', 'A', 'A', 'T'}, {'G', 'A', 'A', 'T'}, {'A', 'C', 'G', 'A'}};
+        assert (MutantUtils.isMutant(matrix, 4));
     }
+
     @Test
-    void testArrayStringToCharMatrixWhenDataCorrect(){
-        String[] data = {"ATCG","ATCG","ATCG","ATCG"};
-        char[][] matrixDemo = {{'A', 'T', 'C', 'G'}, {'A', 'T', 'C', 'G'}, {'A', 'T', 'C', 'G'}, {'A', 'T', 'C', 'G'}};
+    void testArrayStringToCharMatrixWhenDataCorrect() {
+        String[] data = {"ATCG", "ATCG", "ATCG", "ATCG"};
+        char[][] matrixDemo = {{'A', 'T', 'C', 'G'}, {'A', 'A', 'C', 'G'}, {'A', 'T', 'C', 'G'}, {'A', 'T', 'C', 'G'}};
         char[][] matrix = MutantUtils.arrayStringToCharMatrix(data);
-        assert(matrix.length == matrixDemo.length);
+        assert (matrix.length == matrixDemo.length);
     }
+
     @Test
-    void testDnaValidationsWhenDataCorrect(){
+    void testDnaValidationsWhenDataCorrect() {
         DnaRegisterDto dnaRegisterDto = new DnaRegisterDto();
-        String[] dna = {"ATCG","ATCG","ATCG","ATCG"};
+        String[] dna = {"ATCG", "ATCG", "ATCG", "ATCG"};
         dnaRegisterDto.setDna(dna);
-        String dnaValidated="ATCG,ATCG,ATCG,ATCG";
-        assert(MutantUtils.dnaValidations(dnaRegisterDto).equals(dnaValidated));
+        String dnaValidated = "ATCG,ATCG,ATCG,ATCG";
+        assert (MutantUtils.dnaValidations(dnaRegisterDto).equals(dnaValidated));
     }
+
     @Test
-    void testValidateCharactersThrowExceptionWhenDataIncorrect(){
+    void testValidateCharactersThrowExceptionWhenDataIncorrect() {
         String dna = "ATCG,ATCG,ATCG,ATCG";
         assertThrows(BadDataException.class, () -> {
             MutantUtils.validateCharacters(dna);
         });
     }
+
     @Test
-    void testValidateSquareThrowExceptionWhenDataIncorrect(){
+    void testValidateSquareThrowExceptionWhenDataIncorrect() {
         String dna = "ATCG,ATCG,ATCG,ATCGG";
         assertThrows(BadDataException.class, () -> {
-            MutantUtils.validateSquare(dna,4);
+            MutantUtils.validateSquare(dna, 4);
         });
     }
+
     @Test
-    void testValidateMaxSizeThrowExceptionWhenDataIncorrect(){
+    void testValidateMaxSizeThrowExceptionWhenDataIncorrect() {
         String dna = "ATCGATCGATCGATCGGGGG";
         assertThrows(BadDataException.class, () -> {
             MutantUtils.validateMaxSize(dna);

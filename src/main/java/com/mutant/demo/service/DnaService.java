@@ -9,6 +9,8 @@ import java.util.Map;
 
 public interface DnaService {
     Dna save(DnaDto dna);
-    Void Mutant (DnaRegisterDto dnaRegisterDto);
+
+    Void Mutant(DnaRegisterDto dnaRegisterDto);
+
     DnaStatsDto Stats();
 }

@@ -32,23 +32,23 @@ public class DnaServiceImpl implements DnaService {
         DnaDto dnaDto = new DnaDto();
         dnaDto.setDna(mutantUtils.dnaValidations(dnaRegisterDto));
         char matrix[][] = mutantUtils.arrayStringToCharMatrix(dnaRegisterDto.getDna());
-        dnaDto.setIsMutant(mutantUtils.isMutant(matrix,matrix.length));
+        dnaDto.setIsMutant(mutantUtils.isMutant(matrix, matrix.length));
         Dna dna = this.save(dnaDto);
         mutantUtils.noMutant(dna);
         return null;
     }
+
     @Override
-    public DnaStatsDto Stats(){
-        DnaCountDTO dnaCountDTO =dnaDao.countMutants();
+    public DnaStatsDto Stats() {
+        DnaCountDTO dnaCountDTO = dnaDao.countMutants();
         DnaStatsDto dnaStatsDto = new DnaStatsDto();
-        Integer human= dnaCountDTO.getTotal()-dnaCountDTO.getMutants();
-        Float ratio=dnaCountDTO.getTotal().floatValue()/dnaCountDTO.getMutants().floatValue();
+        Integer human = dnaCountDTO.getTotal() - dnaCountDTO.getMutants();
+        Float ratio = dnaCountDTO.getTotal().floatValue() / dnaCountDTO.getMutants().floatValue();
         dnaStatsDto.setCount_mutant_dna(dnaCountDTO.getMutants());
         dnaStatsDto.setCount_human_dna(human);
         dnaStatsDto.setRatio(ratio);
         return dnaStatsDto;
     }
-
 
 
 }

@@ -27,28 +27,39 @@ class DnaServiceImplTest {
     @Mock
     private MutantUtils mutantUtils;
     private DnaServiceImpl dnaService;
+
     @BeforeEach
-    void setUp(){
-        dnaService = new DnaServiceImpl(dnaDao,modelMapper,mutantUtils);
+    void setUp() {
+        dnaService = new DnaServiceImpl(dnaDao, modelMapper, mutantUtils);
     }
+
     @Test
-    void testMutantWhenDataCorrect(){
+    void testMutantWhenDataCorrect() {
         Dna dna = new Dna();
         dna.setDna("ATGCGA,CAGTGC,TTATGT,AGAAGG,CCCCTA,TCACTG");
         dna.setIsMutant(true);
         DnaRegisterDto dnaRegisterDto = new DnaRegisterDto();
-        String dnaArray[] = {"ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
+        String dnaArray[] = {"ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"};
         dnaRegisterDto.setDna(dnaArray);
         when(dnaDao.save(any())).thenReturn(dna);
         dnaService.Mutant(dnaRegisterDto);
     }
-    /*@Test
+
+    @Test
     void testStatsWhenDataCorrect() {
-        DnaCountDTO dnaCountDTO = new DnaCountDTO();
-        dnaCountDTO.setMutants(1);
-        dnaCountDTO.setTotal(2);
+        DnaCountDTO dnaCountDTO = new DnaCountDTO() {
+            @Override
+            public Integer getMutants() {
+                return 1;
+            }
+
+            @Override
+            public Integer getTotal() {
+                return 2;
+            }
+        };
         when(dnaDao.countMutants()).thenReturn(dnaCountDTO);
         dnaService.Stats();
         verify(dnaDao).countMutants();
-    }*/
+    }
 }

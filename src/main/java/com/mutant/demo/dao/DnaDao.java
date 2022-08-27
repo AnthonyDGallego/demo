@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface DnaDao extends JpaRepository<Dna,Integer> {
-    @Query(value= "Select count(id) as total, (select count(id) as mutants from dna where is_mutant =true) as mutants " +
-            "from dna",nativeQuery = true)
+public interface DnaDao extends JpaRepository<Dna, Integer> {
+    @Query(value = "Select count(id) as total, (select count(id) as mutants from dna where is_mutant =true)" +
+            " as mutants from dna", nativeQuery = true)
     public DnaCountDTO countMutants();
 }
