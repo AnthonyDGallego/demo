@@ -43,7 +43,7 @@ public class DnaServiceImpl implements DnaService {
         DnaCountDTO dnaCountDTO = dnaDao.countMutants();
         DnaStatsDto dnaStatsDto = new DnaStatsDto();
         Integer human = dnaCountDTO.getTotal() - dnaCountDTO.getMutants();
-        Float ratio = dnaCountDTO.getTotal().floatValue() / dnaCountDTO.getMutants().floatValue();
+        Float ratio = dnaCountDTO.getMutants().floatValue() / human.floatValue();
         dnaStatsDto.setCount_mutant_dna(dnaCountDTO.getMutants());
         dnaStatsDto.setCount_human_dna(human);
         dnaStatsDto.setRatio(ratio);
