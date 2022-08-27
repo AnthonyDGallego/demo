@@ -8,6 +8,8 @@ import com.mutant.demo.model.Dna;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 @Component
 @AllArgsConstructor
 public class MutantUtils {
@@ -17,12 +19,8 @@ public class MutantUtils {
             throw new AccessDeniedException(ConstantUtils.ADN_NOT_MUTANT);
         }
     }
-    public Boolean isMutant(char[][] matrix) {
+    public Boolean isMutant(char[][] matrix, Integer size) {
         int located = 0;
-        Integer size = 0;
-        for (char i : matrix[0]) {
-            size++;
-        }
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if(located>1){

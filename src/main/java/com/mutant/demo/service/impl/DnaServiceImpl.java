@@ -1,11 +1,10 @@
 package com.mutant.demo.service.impl;
 
-import com.mutant.demo.constants.ConstantUtils;
 import com.mutant.demo.dao.DnaDao;
+import com.mutant.demo.dto.dna.DnaCountDTO;
 import com.mutant.demo.dto.dna.DnaDto;
 import com.mutant.demo.dto.dna.DnaRegisterDto;
-import com.mutant.demo.exceptions.custom.AccessDeniedException;
-import com.mutant.demo.exceptions.custom.BadDataException;
+import com.mutant.demo.dto.dna.DnaStatsDto;
 import com.mutant.demo.model.Dna;
 import com.mutant.demo.service.DnaService;
 import com.mutant.demo.utils.MutantUtils;
@@ -33,19 +32,22 @@ public class DnaServiceImpl implements DnaService {
         DnaDto dnaDto = new DnaDto();
         dnaDto.setDna(mutantUtils.dnaValidations(dnaRegisterDto));
         char matrix[][] = mutantUtils.ArrayStringToCharMatrix(dnaRegisterDto.getDna());
-        dnaDto.setIsMutant(mutantUtils.isMutant(matrix));
+        dnaDto.setIsMutant(mutantUtils.isMutant(matrix,dnaDto.getDna().length()));
         Dna dna = this.save(dnaDto);
         mutantUtils.NoMutant(dna);
         return null;
     }
-
-
-
-
-
-
-
-
+    @Override
+    public DnaStatsDto Stats(){
+        DnaCountDTO dnaCountDTO =dnaDao.countMutants();
+        DnaStatsDto dnaStatsDto = new DnaStatsDto();
+        Integer human= dnaCountDTO.getTotal()-dnaCountDTO.getMutants();
+        Float ratio=dnaCountDTO.getTotal().floatValue()/dnaCountDTO.getMutants().floatValue();
+        dnaStatsDto.setCount_mutant_dna(dnaCountDTO.getMutants());
+        dnaStatsDto.setCount_human_dna(human);
+        dnaStatsDto.setRatio(ratio);
+        return dnaStatsDto;
+    }
 
 
 
