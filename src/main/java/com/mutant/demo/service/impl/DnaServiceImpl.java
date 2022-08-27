@@ -31,10 +31,10 @@ public class DnaServiceImpl implements DnaService {
     public Void Mutant(DnaRegisterDto dnaRegisterDto) {
         DnaDto dnaDto = new DnaDto();
         dnaDto.setDna(mutantUtils.dnaValidations(dnaRegisterDto));
-        char matrix[][] = mutantUtils.ArrayStringToCharMatrix(dnaRegisterDto.getDna());
-        dnaDto.setIsMutant(mutantUtils.isMutant(matrix,dnaDto.getDna().length()));
+        char matrix[][] = mutantUtils.arrayStringToCharMatrix(dnaRegisterDto.getDna());
+        dnaDto.setIsMutant(mutantUtils.isMutant(matrix,matrix.length));
         Dna dna = this.save(dnaDto);
-        mutantUtils.NoMutant(dna);
+        mutantUtils.noMutant(dna);
         return null;
     }
     @Override
