@@ -1,5 +1,5 @@
 How to run:
-First set the following enviroment variables related to a postgres database: (you'll find it in the email)
+First set the following environment variables related to a postgres database: (you'll find it in the email)
 	DB_URL: jdbc url. 
 	DB_PASSWORD=
 	DB_USERNAME=

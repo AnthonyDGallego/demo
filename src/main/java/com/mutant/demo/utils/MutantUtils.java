@@ -5,7 +5,6 @@ import com.mutant.demo.dto.dna.DnaRegisterDto;
 import com.mutant.demo.exceptions.custom.AccessDeniedException;
 import com.mutant.demo.exceptions.custom.BadDataException;
 import com.mutant.demo.model.Dna;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -2,9 +2,7 @@ package com.mutant.demo.service.impl;
 
 import com.mutant.demo.dao.DnaDao;
 import com.mutant.demo.dto.dna.DnaCountDTO;
-import com.mutant.demo.dto.dna.DnaDto;
 import com.mutant.demo.dto.dna.DnaRegisterDto;
-import com.mutant.demo.dto.dna.DnaStatsDto;
 import com.mutant.demo.model.Dna;
 import com.mutant.demo.utils.MutantUtils;
 import org.junit.jupiter.api.BeforeEach;

@@ -5,8 +5,6 @@ import com.mutant.demo.dto.dna.DnaRegisterDto;
 import com.mutant.demo.dto.dna.DnaStatsDto;
 import com.mutant.demo.model.Dna;
 
-import java.util.Map;
-
 public interface DnaService {
     Dna save(DnaDto dna);
 
